@@ -1,0 +1,40 @@
+---
+layout: base
+title: Home
+---
+
+<header>
+    <h1>{{ title }} </h1>
+    
+    <!--Navigation -->
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/photos/1/">Photos</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <p>This is a set of photos about books and writing. 
+        Many of the subjects in the photos are depicted using writing instruments.
+        This collection is comprised of the work of many photographers. 
+    </p>
+
+    <hr>
+
+    <section>
+        <h2>Photo Collection</h2>
+        <hr>
+        {% assign page = 0 %}
+        {% for post in photos.7kmsoc3.media cols:3%}
+            {% assign page = page | plus: 1%}
+            <aside>
+                <a href="photos/{{ page }}">
+                    <img src="{{post.src.tiny}}" alt="{{post.alt}}"/>
+                </a>
+            </aside>
+        {% endfor %}
+    </section>
+</main>
