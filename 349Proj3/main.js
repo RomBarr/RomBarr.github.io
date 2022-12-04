@@ -1,20 +1,25 @@
 import { Stage, createWordHolder } from './modules/stages.js'
-import { CreateLetters } from './modules/letters.js'
-import { AssignWord } from './modules/letters.js'
+import { CreateLetters, getWord } from './modules/letters.js'
 
 const stage = new Stage()
 
 const savedStage = window.localStorage.getItem('stage')
 
 if (savedStage !== null) {
-  console.log("the saved stage is " + savedStage)
   stage.changeStage(parseInt(savedStage))
 }
 
-let word = 'computer'
-//let word = AssignWord()
+const savedWord = window.localStorage.getItem('word')
 
-word = word.toUpperCase()
+let word = ''
+
+if (savedWord !== null) {
+  word = savedWord
+} else {
+  word = getWord()
+}
+
+console.log('the word is ' + word)
 
 createWordHolder(word)
 
@@ -39,7 +44,8 @@ btn.addEventListener('click', function handleClick () {
 
     btn.textContent = 'Lets Play'
 
-    console.log("deleting saved game")
+    window.localStorage.clear()
+    console.log('deleting saved game')
   }
 })
 

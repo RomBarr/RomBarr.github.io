@@ -1,5 +1,3 @@
-import { stage } from '../main.js'
-
 class Stage {
   constructor () {
     this.num = 0
@@ -17,7 +15,7 @@ class Stage {
   }
 }
 
-function createWordHolder (word) {  
+function createWordHolder (word) {
   const table = document.getElementById('word-holder')
 
   // create row
@@ -56,7 +54,8 @@ function fillLetter (word, letter) {
 
       // correct letter was found, save to local storage
       window.localStorage.setItem(`cell-${i}`, true)
-      if(cells[i] === word[i]) {
+      
+      if (determineIfWon(cells, word)) {
         gameWon()
       }
     }
@@ -64,8 +63,20 @@ function fillLetter (word, letter) {
   return matchFound
   }
 }
-  
-function gameWon() {
+
+function determineIfWon(cells, word) {
+  let match = true
+
+  for (let i = 0; i < word.length; ++i) {
+    if (cells[i].textContent !== word[i]) {
+      match = false
+    }
+  }
+  return match
+}
+
+function gameWon () {
+  console.log("game was won!")
   document.getElementById('letters').innerHTML = 'Congratulations You Won!!! '
 }
 

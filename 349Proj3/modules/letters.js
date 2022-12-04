@@ -1,16 +1,16 @@
 import { fillLetter } from './stages.js'
 import { stage } from '../main.js'
 
-function getWord() {
-const words = ['ARRAY', 'ART','COMPUTER', 'PENCIL','BEACH', 'BOOK', 'SOCCER', 'EVENT', 'PRANK', 'PUPPY','CLIMATE', 'SUBTRACTION',
-'MOBILE','FOOD','BACKPACK', 'CANDY','SANDWICH', 'MAKEUP','WIPES','AIRPLANE','TAXI', 'BUS','BEAR','PAW','WOODS','FOREST','PHONE']
-return words[Math.floor(Math.random() * words.length)]
-}
+function getWord () {
+  const words = ['ARRAY', 'ART', 'COMPUTER', 'PENCIL', 'BEACH', 'BOOK', 'SOCCER', 'EVENT', 'PRANK', 'PUPPY', 'CLIMATE', 'SUBTRACTION',
+    'MOBILE', 'FOOD', 'BACKPACK', 'CANDY', 'SANDWICH', 'MAKEUP', 'WIPES', 'AIRPLANE', 'TAXI', 'BUS', 'BEAR', 'PAW', 'WOODS', 'FOREST', 'PHONE']
 
-function AssignWord() {
-  return getWord();
+  const word = words[Math.floor(Math.random() * words.length)]
+
+  window.localStorage.setItem('word', word)
+
+  return word
 }
-export { AssignWord }
 
 function CreateLetters (word) {
   const alphabet = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'
@@ -35,7 +35,7 @@ function CreateLetters (word) {
     button.addEventListener('click', function () {
       if (!fillLetter(word, button.value)) {
         stage.changeStage(stage.getStage() + 1)
-        if(stage.getStage() === 12) {
+        if (stage.getStage() === 12) {
           gameLost(word)
         }
       }
@@ -48,8 +48,9 @@ function CreateLetters (word) {
   }
 }
 
-function gameLost(word) {
+function gameLost (word) {
   document.getElementById('word-holder').innerHTML = ' You Lost!!!'
   document.getElementById('letters').innerHTML = 'The answer was: ' + word
+  window.localStorage.clear()
 }
-export { CreateLetters }
+export { CreateLetters, getWord }
